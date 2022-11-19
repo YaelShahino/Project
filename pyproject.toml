@@ -1,0 +1,83 @@
+[tool.poetry]
+name = "myproject"
+version = "0.1.0"
+description = ""
+authors = ["Yael Shahino <yaelshahino110695@gmail.com>"]
+readme = "README.md"
+packages = [{include = "myproject", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^1.10.2"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.991"
+black = "^22.10.0"
+isort = "^5.10.1"
+flake8 = "^5.0.4"
+pep8-naming = "^0.13.2"
+flake8-comprehensions = "^3.10.1"
+flake8-mutable = "^1.2.0"
+flake8-simplify = "^0.19.3"
+flake8-pytest-style = "^1.6.0"
+flake8-builtins = "^2.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 150
+skip-magic-trailing-comma = true
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+
+show_error_codes = true
+follow_imports = "normal"
+ignore_errors = false
+implicit_reexport = false
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+check_untyped_defs = true
+allow_redefinition = false
+local_partial_types = true
+strict_optional = true
+strict_equality = true
+warn_unused_configs = true
+warn_unreachable = true
+warn_no_return = true
+warn_return_any = true
+enable_error_code = "ignore-without-code,unused-awaitable"
+
+# This is becoming the default since Python's PEPs for type hints specify implicit optionals should no longer be supported
+no_implicit_optional = true
+strict = true
+
+# Mypy plugins
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+# Ignore missing imports for libraries we use that don't have type hints
+# [[tool.mypy.overrides]]
+# module = [
+#     "dummy",
+# 	"dummy.module",
+# 	"dummy.module.inner",
+# ]
+# ignore_missing_imports = true
